@@ -1,0 +1,9 @@
+#show heading: it => {
+    align(center, it)
+}
+
+= Conique
+
+== LAZARUS Ségolène, MOULAT Mattéo
+
+1. Les coefficients sont définis à un facteur multiplicatif près (la preuve formelle est laissée en tant qu'exercice pour le lecteur).
