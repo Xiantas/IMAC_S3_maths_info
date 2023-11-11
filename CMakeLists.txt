@@ -16,9 +16,13 @@ else()
     message(STATUS "  include " ${EIGEN3_INCLUDE_DIR})
 endif()
 
-
 # files to compile
-add_executable(conic src/main.cpp src/Geogebra_conics.cpp src/Geogebra_conics.hpp src/Entry.cpp src/Entry.hpp src/Directory.cpp src/Directory.hpp)
+add_executable(conic)
+
+file(GLOB_RECURSE SOURCES_FILES CONFIGURE_DEPENDS src/*)
+target_sources(${PROJECT_NAME} PRIVATE ${SOURCES_FILES})
+
+target_include_directories(${PROJECT_NAME} PRIVATE headers)
 
 # compilation options
 target_compile_features(conic PRIVATE cxx_std_11) # use at least c++ 11
