@@ -9,8 +9,9 @@
 
 int main()
 {
-  // the viewer will open a file whose path is writen in hard (bad!!). 
-  // So you should either launch your program from the fine directory or change the path to this file.
+  // The viewer will open a file whose path is writen in hard (bad!!). 
+  // So you should either launch your program from the fine directory
+  // or change the path to this file.
   Viewer_conic viewer;
 
   // viewer options
@@ -40,7 +41,8 @@ int main()
 
   // render
   viewer.display(); // on terminal
-  viewer.render("output.html");  // generate the output file (to open with your web browser)
+  // generate the output file (to open with your web browser)
+  viewer.render("output.html"); 
 
   return 0;
 }
