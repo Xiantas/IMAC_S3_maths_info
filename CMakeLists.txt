@@ -9,11 +9,11 @@ add_executable(conic)
 file(GLOB_RECURSE SOURCES_FILES CONFIGURE_DEPENDS src/*)
 target_sources(${PROJECT_NAME} PRIVATE ${SOURCES_FILES})
 
-target_include_directories(${PROJECT_NAME} PRIVATE headers)
+target_include_directories(${PROJECT_NAME} PRIVATE inc)
 
 # include Eigen
+find_package(Eigen3 REQUIRED)
 if(${EIGEN3_FOUND})
-    find_package(Eigen3 REQUIRED)
     message(STATUS "lib EIGEN3 found")
     message(STATUS "  version " ${EIGEN3_VERSION_STRING})
     message(STATUS "  include " ${EIGEN3_INCLUDE_DIR})
@@ -27,7 +27,7 @@ endif()
 # files to compile
 
 # compilation options
-target_compile_features(conic PRIVATE cxx_std_11) # use at least c++ 11
+target_compile_features(conic PRIVATE cxx_std_17) # use at least c++ 11
 if (MSVC)
     target_compile_options(conic PRIVATE /W3)
 else()
