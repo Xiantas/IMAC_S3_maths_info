@@ -1,24 +1,19 @@
-#include <iostream>
-#include <vector>
-#include <random>
-#include <chrono>
-
-#include <Eigen/Dense>
-
 #include "Geogebra_conics.hpp"
+#include "random.hpp"
 
-unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-
-std::cout << std::endl << "std::mt19937" << std::endl;
-std::mt19937 generator(seed);
-
-std::cout << std::endl << "uniform int distribution (1,6)" << std::endl;
-std::uniform_int_distribution<double> uniformIntDistribution(-10,10);
-std::cout << std::endl;
 
 Eigen::VectorXd randomPt(){
-    srand(time(NULL));
+    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
 
-    double x = rand() % -10 + 10;
-    double y = rand() % -10 + 10;
+    std::mt19937 generator(seed);
+    std::uniform_real_distribution<double> uniformDoubleDistribution(-10.0,10.0);
+
+    Eigen::VectorXd ptR(2);
+
+    double n1 = uniformDoubleDistribution(generator);
+    double n2 = uniformDoubleDistribution(generator);
+
+    ptR << n1,n2;
+
+    return ptR;
 }

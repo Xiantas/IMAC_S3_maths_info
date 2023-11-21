@@ -5,6 +5,7 @@
 
 #include "Geogebra_conics.hpp"
 #include "path_management.hpp"
+#include "random.hpp"
 
 import fs;
 
@@ -24,17 +25,34 @@ int main(int argc, char **argv) {
     viewer.show_label(true);
 
     // draw points
-    Eigen::VectorXd pt1(2), pt2(2), pt3(2);
+    int n=5;
+    
+    /*Eigen::VectorXd pt1(2), pt2(2), pt3(2), pt4(2);
     pt1 <<  1.5,  2.0;
     pt2 <<  3.0,  1.0;
     pt3 << -2.0, -1.0;
+    std::cout << "test random" << std::endl;
+    pt4 = randomPt();
+    std::cout << pt4 << std::endl;*/
 
-    viewer.push_point(pt1, "p1", 200,0,0);
-    viewer.push_point(pt2, "p2", 200,0,0);
-    viewer.push_point(pt3, 200,0,0);
+    std::vector<Eigen::VectorXd> vp(n,Eigen::VectorXd::Zero(2));
+
+    for(int i = 0;i<n;i++){
+        vp[i] = randomPt();
+    }
+
+    for(int i = 0;i<n;i++){
+        std::cout << "pt num : " << i << std::endl;
+        std::cout << vp[i] << std::endl;
+        viewer.push_point(vp[i], "p", 200,0,0);
+    }
+
+    // viewer.push_point(pt1, "p1", 200,0,0);
+    // viewer.push_point(pt2, "p2", 200,0,0);
+    // viewer.push_point(pt3, 200,0,0);
 
     // draw line
-    viewer.push_line(pt1, pt2-pt1,  200,200,0);
+    // viewer.push_line(pt1, pt2-pt1,  200,200,0);
 
     // draw conic
     Eigen::VectorXd conic(6);
