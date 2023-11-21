@@ -27,7 +27,11 @@ endif()
 # files to compile
 
 # compilation options
-target_compile_features(conic PRIVATE cxx_std_17) # use at least c++ 11
+set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 20)
+
+target_compile_options(${PROJECT_NAME} PRIVATE -fmodules-ts)
+
+#target_compile_features(conic PRIVATE cxx_std_11) # use at least c++ 11
 if (MSVC)
     target_compile_options(conic PRIVATE /W3)
 else()
@@ -37,4 +41,4 @@ endif()
 # lib include path
 target_include_directories(conic PRIVATE "${EIGEN3_INCLUDE_DIR}")
 
-
+set_directory_properties(PROPERTIES ADDITIONAL_CLEAN_FILES "build/gcm.cache")
