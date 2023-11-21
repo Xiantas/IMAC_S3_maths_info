@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.15)
+cmake_minimum_required(VERSION 3.20)
 
 
 # give a name to the project
@@ -41,4 +41,4 @@ endif()
 # lib include path
 target_include_directories(conic PRIVATE "${EIGEN3_INCLUDE_DIR}")
 
-set_directory_properties(PROPERTIES ADDITIONAL_CLEAN_FILES "build/gcm.cache")
+set_directory_properties(PROPERTIES ADDITIONAL_CLEAN_FILES "gcm.cache")

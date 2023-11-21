@@ -6,6 +6,7 @@
 #include "Geogebra_conics.hpp"
 #include "path_management.hpp"
 
+import fs;
 
 
 int main(int argc, char **argv) {
@@ -43,8 +44,7 @@ int main(int argc, char **argv) {
     // render
     viewer.display(); // on terminal
     // generate the output file (to open with your web browser)
-    viewer.render("output.html", pathmanagement::htmlTemplatePath(argv[0]));
+    viewer.render("output.html", fs::htmlTemplatePath(argv[0]));
 
     return 0;
 }
-

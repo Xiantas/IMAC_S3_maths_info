@@ -1,9 +1,14 @@
-#include <path_management.hpp>
+module;
+//#include <path_management.hpp>
 
 #include <filesystem>
 #include <iostream>
 
-std::filesystem::path pathmanagement::htmlTemplatePath(const char *relExePath) {
+export module fs;
+
+namespace fs {
+
+export std::filesystem::path htmlTemplatePath(const char *relExePath) {
     std::filesystem::path absExePath(std::filesystem::absolute(relExePath));
 
     std::filesystem::path htmlPath = absExePath.parent_path()/"geogebra_conics_template.html";
@@ -24,4 +29,6 @@ std::filesystem::path pathmanagement::htmlTemplatePath(const char *relExePath) {
 
     std::cout << htmlPath << '\n';
     return htmlPath;
+}
+
 }
