@@ -5,44 +5,29 @@
 #include <vector>
 #include <iostream>
 #include <string>
-#include <algorithm> 
+#include <algorithm>
 #include <cstdlib>
 #include <limits>
 
 #include <Eigen/Dense>
 
 #include "Entry.hpp"
-#include "Directory.hpp"
 
 
 
-class Viewer_conic
-{
-public:
-
-    // list of entries
-    std::list<Entry> entries;
-    bool m_show_axis = true;       // true to display the axis
-    bool m_show_grid = false;      // true to display a grid 
-    bool m_show_value = false;     // true to display the value of each object near the object
-    bool m_show_label = false;     // true to display the value of each object near the object
-    bool m_show_xOy_plane = false; // show the gray xOy plane
-    bool m_oriented_line = false;  // true to add an arrow on a line to show its direction
-    std::vector<float> m_background_color = {1.,1.,1.};  // color of the background (RGB, from 0 to 255 per component)
-
-
+class ConicViewer {
 
 public:
 
-    Viewer_conic();
+    ConicViewer();
 
-    ~Viewer_conic();
+    ~ConicViewer();
 
     void display() const;
 
     void removeNameDoublons();
 
-    void render(const std::string &filename);
+    void render(const std::string &filename, const std::string &templatePath);
 
 
     // \bief setter to enable / disable the option to show axis
@@ -51,10 +36,10 @@ public:
     /// \bief setter to enable / disable the option to show a grid
     inline void show_grid(const bool show_grid_on) {m_show_grid = show_grid_on;}
 
-    /// \bief setter to enable / disable the option to show the value of each object 
+    /// \bief setter to enable / disable the option to show the value of each object
     inline void show_value(const bool show_value_on) {m_show_value = show_value_on;}
 
-    /// \bief setter to enable / disable the option to show the label of each object 
+    /// \bief setter to enable / disable the option to show the label of each object
     inline void show_label(const bool show_label_on) {m_show_label = show_label_on;}
 
     /// \bief setter to enable / disable the option to show the xOy plane
@@ -100,4 +85,14 @@ public:
 
     int push_conic(const Eigen::VectorXd &c, std::string objectName = "", const unsigned int &red = -1, const unsigned int &green = -1, const unsigned int &blue = -1);
 
+private:
+    // list of entries
+    std::list<Entry> entries;
+    bool m_show_axis = true;       // true to display the axis
+    bool m_show_grid = false;      // true to display a grid
+    bool m_show_value = false;     // true to display the value of each object near the object
+    bool m_show_label = false;     // true to display the value of each object near the object
+    bool m_show_xOy_plane = false; // show the gray xOy plane
+    bool m_oriented_line = false;  // true to add an arrow on a line to show its direction
+    std::vector<float> m_background_color = {1.,1.,1.};  // color of the background (RGB, from 0 to 255 per component)
 };

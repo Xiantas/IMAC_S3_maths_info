@@ -9,13 +9,11 @@
 
 
 int main(int argc, char **argv) {
-    // The viewer will open a file whose path is writen in hard (bad!!). 
+    // The viewer will open a file whose path is writen in hard (bad!!).
     // So you should either launch your program from the fine directory
     // or change the path to this file.
 
-    std::cout << pathmanagement::htmlTemplatePath(argv[0]) << '\n';;
-
-    Viewer_conic viewer;
+    ConicViewer viewer;
 
     // viewer options
     viewer.set_background_color(250, 250, 255);
@@ -45,7 +43,7 @@ int main(int argc, char **argv) {
     // render
     viewer.display(); // on terminal
     // generate the output file (to open with your web browser)
-    viewer.render("output.html"); 
+    viewer.render("output.html", pathmanagement::htmlTemplatePath(argv[0]));
 
     return 0;
 }
