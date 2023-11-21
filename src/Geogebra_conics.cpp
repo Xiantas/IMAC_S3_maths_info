@@ -2,20 +2,20 @@
 
 #include "Entry.hpp"
 #include "Geogebra_conics.hpp"
+#include "Directory.hpp"
 
 
-Viewer_conic::Viewer_conic() {}
+ConicViewer::ConicViewer() {}
 
-Viewer_conic::~Viewer_conic() {}
+ConicViewer::~ConicViewer() {}
 
-void Viewer_conic::display() const
-{
+void ConicViewer::display() const {
     for(const auto& e : entries)
         e.display();
 }
 
 
-void Viewer_conic::removeNameDoublons(){
+void ConicViewer::removeNameDoublons(){
 
     // for each entry, find if there is multiple occurences of the same name
     auto e = entries.begin();
@@ -38,10 +38,9 @@ void Viewer_conic::removeNameDoublons(){
 
 
 
-void Viewer_conic::render(const std::string &filename) {
-
+void ConicViewer::render(const std::string &filename, const std::string &templatePath) {
     // open the template file
-    std::string data = readFile("../data/geogebra_conics_template.html");
+    std::string data = readFile(templatePath);
 
     // remove name doublons
     removeNameDoublons();
@@ -49,9 +48,9 @@ void Viewer_conic::render(const std::string &filename) {
     // build output commands
     std::string commands = "";
 
- 
 
-    // options 
+
+    // options
     if(m_show_axis) commands += "   api.evalCommand(\"ShowAxes(true)\");\n";
     else            commands += "   api.evalCommand(\"ShowAxes(false)\");\n";
 
@@ -64,7 +63,7 @@ void Viewer_conic::render(const std::string &filename) {
     commands += "   api.evalCommand(\"SetBackgroundColor(" + std::to_string(m_background_color[0]) + ","
                                                            + std::to_string(m_background_color[1]) + ","
                                                            + std::to_string(m_background_color[2])
-                                                           + ")\");\n"; 
+                                                           + ")\");\n";
 
     // for each entry, extract the command
     for(const auto& e : entries){
@@ -76,28 +75,28 @@ void Viewer_conic::render(const std::string &filename) {
 
         // color
         if(e.m_color[0] != -1)
-            commands += "   api.evalCommand(\"SetColor(" + e._objectName + ", " 
-                                + std::to_string(e.m_color[0]/255.0) + ", " 
-                                + std::to_string(e.m_color[1]/255.0) + ", " 
-                                + std::to_string(e.m_color[2]/255.0) + ")\");\n"; 
+            commands += "   api.evalCommand(\"SetColor(" + e._objectName + ", "
+                                + std::to_string(e.m_color[0]/255.0) + ", "
+                                + std::to_string(e.m_color[1]/255.0) + ", "
+                                + std::to_string(e.m_color[2]/255.0) + ")\");\n";
 
         // show labels and values
-        // show value (0=Name, 1=Name + Value, 2=Value) 
+        // show value (0=Name, 1=Name + Value, 2=Value)
         if( (e.m_show_label == true) && (e.m_show_value == true)  ){
             commands += "   api.evalCommand(\"ShowLabel(" + e._objectName + ", true)\");\n";
-            commands += "   api.evalCommand(\"SetLabelMode(" + e._objectName + ", 1)\");\n";        
+            commands += "   api.evalCommand(\"SetLabelMode(" + e._objectName + ", 1)\");\n";
         }
         if( (e.m_show_label == true) && (e.m_show_value == false)  ){
             commands += "   api.evalCommand(\"ShowLabel(" + e._objectName + ", true)\");\n";
-            commands += "   api.evalCommand(\"SetLabelMode(" + e._objectName + ", 0)\");\n";        
+            commands += "   api.evalCommand(\"SetLabelMode(" + e._objectName + ", 0)\");\n";
         }
         if( (e.m_show_label == false) && (e.m_show_value == true)  ){
             commands += "   api.evalCommand(\"ShowLabel(" + e._objectName + ", true)\");\n";
-            commands += "   api.evalCommand(\"SetLabelMode(" + e._objectName + ", 2)\");\n";        
+            commands += "   api.evalCommand(\"SetLabelMode(" + e._objectName + ", 2)\");\n";
         }
         if( (e.m_show_label == false) && (e.m_show_value == false)  ){
             commands += "   api.evalCommand(\"ShowLabel(" + e._objectName + ", false)\");\n";
-        }                              
+        }
     }
 
     // substitute command on template file
@@ -109,8 +108,7 @@ void Viewer_conic::render(const std::string &filename) {
 
 
 // https://wiki.geogebra.org/en/Point_Command
-int Viewer_conic::push_point(const Eigen::VectorXd &pt, std::string objectName, const unsigned int &red, const unsigned int &green, const unsigned int &blue)
-{
+int ConicViewer::push_point(const Eigen::VectorXd &pt, std::string objectName, const unsigned int &red, const unsigned int &green, const unsigned int &blue) {
     // remove space in the name
     objectName.erase(std::remove(objectName.begin(), objectName.end(), ' '), objectName.end());
 
@@ -131,8 +129,7 @@ int Viewer_conic::push_point(const Eigen::VectorXd &pt, std::string objectName, 
 }
 
 // https://wiki.geogebra.org/en/Line_Command
-int Viewer_conic::push_line(const Eigen::VectorXd &pt, const Eigen::VectorXd &dir, std::string objectName, const unsigned int &red, const unsigned int &green, const unsigned int &blue)
-{
+int ConicViewer::push_line(const Eigen::VectorXd &pt, const Eigen::VectorXd &dir, std::string objectName, const unsigned int &red, const unsigned int &green, const unsigned int &blue) {
     // remove space in the name
     objectName.erase(std::remove(objectName.begin(), objectName.end(), ' '), objectName.end());
 
@@ -154,8 +151,7 @@ int Viewer_conic::push_line(const Eigen::VectorXd &pt, const Eigen::VectorXd &di
 
 
 // https://wiki.geogebra.org/en/Line_Command
-int Viewer_conic::push_direction(const Eigen::VectorXd &direction, std::string objectName, const unsigned int &red, const unsigned int &green, const unsigned int &blue)
-{
+int ConicViewer::push_direction(const Eigen::VectorXd &direction, std::string objectName, const unsigned int &red, const unsigned int &green, const unsigned int &blue) {
     // remove space in the name
     objectName.erase(std::remove(objectName.begin(), objectName.end(), ' '), objectName.end());
 
@@ -176,8 +172,7 @@ int Viewer_conic::push_direction(const Eigen::VectorXd &direction, std::string o
 }
 
  // https://wiki.geogebra.org/en/Conic_Command
-int Viewer_conic::push_conic(const Eigen::VectorXd &c, std::string objectName, const unsigned int &red, const unsigned int &green, const unsigned int &blue)
-{
+int ConicViewer::push_conic(const Eigen::VectorXd &c, std::string objectName, const unsigned int &red, const unsigned int &green, const unsigned int &blue) {
     // remove space in the name
     objectName.erase(std::remove(objectName.begin(), objectName.end(), ' '), objectName.end());
 
@@ -190,7 +185,7 @@ int Viewer_conic::push_conic(const Eigen::VectorXd &c, std::string objectName, c
                          + std::to_string(c[1]) + ","   // xy
                          + std::to_string(c[3]) + ","   // x
                          + std::to_string(c[4]) + ")";  // y
-                            
+
     // put a default name
     if(objectName == "")
         objectName = "c";
