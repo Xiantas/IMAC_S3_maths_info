@@ -7,10 +7,12 @@
 
 namespace fs {
 
-typedef std::filesystem::path path;
+using Path = std::filesystem::path;
 
-path htmlTemplatePath(const path &exeRelPath);
+void setAbsExePath(Path exePath);
 
-std::vector<Eigen::Vector3d> loadVectorsFile();
+Path htmlTemplatePath();
+
+std::vector<Eigen::Vector3d> loadVectorsFile(const Path &path);
 
 }

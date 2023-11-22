@@ -9,9 +9,9 @@
 
 
 int main(int argc, char **argv) {
-    // The viewer will open a file whose path is writen in hard (bad!!).
-    // So you should either launch your program from the fine directory
-    // or change the path to this file.
+
+    //Setup du système de fichier
+    fs::setAbsExePath(argv[0]);
 
     ConicViewer viewer;
 
@@ -43,7 +43,7 @@ int main(int argc, char **argv) {
     // render
     viewer.display(); // on terminal
     // generate the output file (to open with your web browser)
-    viewer.render("output.html", fs::htmlTemplatePath(argv[0]));
+    viewer.render("output.html", fs::htmlTemplatePath());
 
     return 0;
 }

@@ -1,31 +1,31 @@
 #include "files.hpp"
 
 #include <filesystem>
-#include <iostream>
 
 namespace fs {
+Path ABS_EXE_PATH;
 
-std::filesystem::path htmlTemplatePath(const char *relExePath) {
-    std::filesystem::path absExePath(std::filesystem::canonical(relExePath));
+void setAbsExePath(fs::Path exePath) {
+    ABS_EXE_PATH = std::filesystem::canonical(exePath);
+}
 
-    std::filesystem::path htmlPath = absExePath.parent_path()/"geogebra_conics_template.html";
+Path htmlTemplatePath() {
+    Path htmlPath = ABS_EXE_PATH.parent_path()/"geogebra_conics_template.html";
 
-    std::cout << htmlPath << '\n';
     if (std::filesystem::exists(htmlPath)) {
         return htmlPath;
     }
 
-    htmlPath = absExePath.parent_path().parent_path()/"data/geogebra_conics_template.html";
+    htmlPath = ABS_EXE_PATH.parent_path().parent_path()/"data/geogebra_conics_template.html";
 
-    std::cout << htmlPath << '\n';
     if (std::filesystem::exists(htmlPath)) {
         return htmlPath;
     }
 
-    htmlPath = absExePath.parent_path().parent_path()/"geogebra_conics_template.html";
+    htmlPath = ABS_EXE_PATH.parent_path().parent_path()/"geogebra_conics_template.html";
 
-    std::cout << htmlPath << '\n';
     return htmlPath;
 }
 
 }
+
