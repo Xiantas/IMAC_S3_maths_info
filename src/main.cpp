@@ -7,7 +7,7 @@
 #include "path_management.hpp"
 #include "random.hpp"
 
-import fs;
+#include "path_management.hpp"
 
 
 int main(int argc, char **argv) {

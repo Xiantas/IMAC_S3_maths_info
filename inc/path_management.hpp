@@ -2,7 +2,7 @@
 
 #include <filesystem>
 
-namespace pathmanagement {
+namespace fs {
 
 std::filesystem::path htmlTemplatePath(const char *exeRelPath);
 
