@@ -11,6 +11,6 @@ typedef std::filesystem::path path;
 
 path htmlTemplatePath(const path &exeRelPath);
 
-std::vector<Eigen::Vector3d> loadVectorsFile(
+std::vector<Eigen::Vector3d> loadVectorsFile();
 
 }

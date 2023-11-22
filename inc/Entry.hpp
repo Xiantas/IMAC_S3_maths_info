@@ -19,7 +19,7 @@ public:
 
     void display() const;
 
-private:
+public:
 
     // object equation or geogebra formulation
     std::string m_equation;
