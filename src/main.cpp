@@ -6,6 +6,7 @@
 #include "Geogebra_conics.hpp"
 #include "files.hpp"
 #include "random.hpp"
+#include "solverExact.hpp"
 
 
 int main(int argc, char **argv) {
@@ -36,8 +37,7 @@ int main(int argc, char **argv) {
 
 
     // draw conic
-    Eigen::Vector<double, 6> conic;
-    conic << -1.4, -0.3, -1, -0.6, 0.0, 0.8;
+    Eigen::Vector<double, 6> conic = solverExact(vp);
     viewer.push_conic(conic, 0,0,200);
 
     // render
