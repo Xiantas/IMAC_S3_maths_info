@@ -36,9 +36,6 @@ int main(int argc, char **argv) {
         viewer.push_point(vp[i], "p", 200,0,0);
     }
 
-    // viewer.push_point(pt1, "p1", 200,0,0);
-    // viewer.push_point(pt2, "p2", 200,0,0);
-    // viewer.push_point(pt3, 200,0,0);
 
     // draw line
     // viewer.push_line(pt1, pt2-pt1,  200,200,0);
