@@ -3,9 +3,23 @@
 #include <iostream>
 #include <vector>
 #include <string>
-class Entry
-{
+class Entry {
 public:
+    Entry() = default;
+
+    Entry(const std::string &equation, 
+          const std::string &objectName, 
+          const int &red = -1, 
+          const int &green = -1, 
+          const int &blue = -1, 
+          bool show_label = false, 
+          bool show_value = false);
+
+    ~Entry() = default;
+
+    void display() const;
+
+private:
 
     // object equation or geogebra formulation
     std::string m_equation;
@@ -21,21 +35,4 @@ public:
 
     // show value
     bool m_show_value;
-
-
-public:
-
-    Entry() = default;
-
-    Entry(const std::string &equation, 
-          const std::string &objectName, 
-          const int &red = -1, 
-          const int &green = -1, 
-          const int &blue = -1, 
-          bool show_label = false, 
-          bool show_value = false);
-
-    ~Entry() = default;
-
-    void display() const;
 };
