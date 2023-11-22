@@ -31,11 +31,11 @@ int main(int argc, char **argv) {
         vp2[i] = randomPt();
     }
 
-    for(size_t i = 0; i<vp.size(); i++) {
+    /*for(size_t i = 0; i<vp.size(); i++) {
         std::cout << "pt num : " << i << std::endl;
         std::cout << vp[i] << std::endl;
         viewer.push_point(vp[i], "p", 200,0,0);
-    }
+    }*/
 
 
     // draw conic
@@ -44,12 +44,25 @@ int main(int argc, char **argv) {
 
     std::vector<Eigen::Vector<double, 6>> faiseau = generateFaiseau(conic1,conic2);
 
-    for(size_t i = 0; i<faiseau.size();i++){
+    /*for(size_t i = 0; i<faiseau.size();i++){
         viewer.push_conic(faiseau[i], 0,0,200);
+    }*/
+
+    std::vector<Eigen::Vector3d> vl(5);
+    for(size_t i = 0; i<vl.size(); i++) {
+        vl[i] = randomLine();
+
+        Eigen::Vector3d pt;
+        pt << -vl[i](2)/vl[i](0), 0, 1;
+
+        Eigen::Vector2d dir;
+        dir << vl[i](2)/vl[i](0), -vl[i](2)/vl[i](1);
+
+        viewer.push_line(pt,dir, 0,0,200);
     }
-    
 
-
+    const Eigen::Vector<double, 6> &conique = solverTangentes(vl);
+    viewer.push_conic(conique, 200,0,0);
 
     // render
     viewer.display(); // on terminal

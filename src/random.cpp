@@ -23,3 +23,15 @@ Eigen::Vector3d randomPt(){
 
     return point;
 }
+
+Eigen::Vector3d randomLine(){
+    Eigen::Vector3d line;
+
+    double n1 = generateRandom();
+    double n2 = generateRandom();
+    double n3 = generateRandom();
+
+    line << n1,n2,n3;
+
+    return line;
+}
