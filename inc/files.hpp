@@ -9,7 +9,7 @@ namespace fs {
 
 using Path = std::filesystem::path;
 
-void setAbsExePath(Path exePath);
+void setAbsExePath(const Path &exePath);
 
 Path htmlTemplatePath();
 
