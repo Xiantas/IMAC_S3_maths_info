@@ -24,24 +24,13 @@ int main(int argc, char **argv) {
     viewer.show_value(false);
     viewer.show_label(true);
 
-    // draw points
-    int n=5;
-    
-    /*Eigen::Vector3d pt1(2), pt2(2), pt3(2), pt4(2);
-    pt1 <<  1.5,  2.0;
-    pt2 <<  3.0,  1.0;
-    pt3 << -2.0, -1.0;
-    std::cout << "test random" << std::endl;
-    pt4 = randomPt();
-    std::cout << pt4 << std::endl;*/
+    std::vector<Eigen::Vector3d> vp(5, Eigen::Vector3d());
 
-    std::vector<Eigen::Vector3d> vp(n,Eigen::Vector3d());
-
-    for(int i = 0;i<n;i++){
+    for(int i = 0; i<vp.size(); i++) {
         vp[i] = randomPt();
     }
 
-    for(int i = 0;i<n;i++){
+    for(int i = 0; i<vp.size(); i++) {
         std::cout << "pt num : " << i << std::endl;
         std::cout << vp[i] << std::endl;
         viewer.push_point(vp[i], "p", 200,0,0);
