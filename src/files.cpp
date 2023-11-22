@@ -49,7 +49,7 @@ Path htmlTemplatePath() {
 }
 
 std::vector<Eigen::Vector3d> loadVectorsFile(const Path &path) {
-    
+    return std::vector<Eigen::Vector3d>(0);
 }
 
 }
