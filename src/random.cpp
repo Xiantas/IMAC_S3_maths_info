@@ -1,19 +1,25 @@
 #include "Geogebra_conics.hpp"
 #include "random.hpp"
 
+#include <random>
+#include <chrono>
 
-Eigen::VectorXd randomPt(){
-    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+double generateRandom() {
+    static std::mt19937 generator(
+        std::chrono::system_clock::now().time_since_epoch().count()
+    );
+    static std::uniform_real_distribution<double> distribution(-10.0, 10.0);
 
-    std::mt19937 generator(seed);
-    std::uniform_real_distribution<double> uniformDoubleDistribution(-10.0,10.0);
+    return distribution(generator);
+}
 
-    Eigen::VectorXd ptR(2);
+Eigen::Vector3d randomPt(){
+    Eigen::Vector3d point;
 
-    double n1 = uniformDoubleDistribution(generator);
-    double n2 = uniformDoubleDistribution(generator);
+    double n1 = generateRandom();
+    double n2 = generateRandom();
 
-    ptR << n1,n2;
+    point << n1,n2,1;
 
-    return ptR;
+    return point;
 }

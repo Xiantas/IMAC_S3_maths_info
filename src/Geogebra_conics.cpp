@@ -108,7 +108,7 @@ void ConicViewer::render(const std::string &filename, const std::string &templat
 
 
 // https://wiki.geogebra.org/en/Point_Command
-int ConicViewer::push_point(const Eigen::VectorXd &pt, std::string objectName, const unsigned int &red, const unsigned int &green, const unsigned int &blue) {
+int ConicViewer::push_point(const Eigen::Vector3d &pt, std::string objectName, const unsigned int &red, const unsigned int &green, const unsigned int &blue) {
     // remove space in the name
     objectName.erase(std::remove(objectName.begin(), objectName.end(), ' '), objectName.end());
 
@@ -129,7 +129,7 @@ int ConicViewer::push_point(const Eigen::VectorXd &pt, std::string objectName, c
 }
 
 // https://wiki.geogebra.org/en/Line_Command
-int ConicViewer::push_line(const Eigen::VectorXd &pt, const Eigen::VectorXd &dir, std::string objectName, const unsigned int &red, const unsigned int &green, const unsigned int &blue) {
+int ConicViewer::push_line(const Eigen::Vector3d &pt, const Eigen::Vector2d &dir, std::string objectName, const unsigned int &red, const unsigned int &green, const unsigned int &blue) {
     // remove space in the name
     objectName.erase(std::remove(objectName.begin(), objectName.end(), ' '), objectName.end());
 
@@ -151,7 +151,7 @@ int ConicViewer::push_line(const Eigen::VectorXd &pt, const Eigen::VectorXd &dir
 
 
 // https://wiki.geogebra.org/en/Line_Command
-int ConicViewer::push_direction(const Eigen::VectorXd &direction, std::string objectName, const unsigned int &red, const unsigned int &green, const unsigned int &blue) {
+int ConicViewer::push_direction(const Eigen::Vector2d &direction, std::string objectName, const unsigned int &red, const unsigned int &green, const unsigned int &blue) {
     // remove space in the name
     objectName.erase(std::remove(objectName.begin(), objectName.end(), ' '), objectName.end());
 
@@ -172,7 +172,7 @@ int ConicViewer::push_direction(const Eigen::VectorXd &direction, std::string ob
 }
 
  // https://wiki.geogebra.org/en/Conic_Command
-int ConicViewer::push_conic(const Eigen::VectorXd &c, std::string objectName, const unsigned int &red, const unsigned int &green, const unsigned int &blue) {
+int ConicViewer::push_conic(const Eigen::Vector<double, 6> &c, std::string objectName, const unsigned int &red, const unsigned int &green, const unsigned int &blue) {
     // remove space in the name
     objectName.erase(std::remove(objectName.begin(), objectName.end(), ' '), objectName.end());
 

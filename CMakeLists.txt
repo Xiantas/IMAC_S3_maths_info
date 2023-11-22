@@ -27,7 +27,7 @@ endif()
 
 
 # compilation options
-set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 20)
+set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 17)
 if (MSVC)
     target_compile_options(conic PRIVATE /W3)
 else()

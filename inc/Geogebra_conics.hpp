@@ -54,36 +54,36 @@ public:
     }
 
 
-    inline int push_point(const Eigen::VectorXd &pt, const unsigned int &red = -1, const unsigned int &green = -1, const unsigned int &blue = -1 ){
+    inline int push_point(const Eigen::Vector3d &pt, const unsigned int &red = -1, const unsigned int &green = -1, const unsigned int &blue = -1 ){
         return push_point(pt, "",red,green,blue);
     }
 
-    int push_point(const Eigen::VectorXd &pt, std::string objectName = "", const unsigned int &red = -1, const unsigned int &green = -1, const unsigned int &blue = -1);
+    int push_point(const Eigen::Vector3d &pt, std::string objectName = "", const unsigned int &red = -1, const unsigned int &green = -1, const unsigned int &blue = -1);
 
 
 
-    inline int push_line(const Eigen::VectorXd &pt, const Eigen::VectorXd &dir, const unsigned int &red = -1, const unsigned int &green = -1, const unsigned int &blue = -1 ){
+    inline int push_line(const Eigen::Vector3d &pt, const Eigen::Vector2d &dir, const unsigned int &red = -1, const unsigned int &green = -1, const unsigned int &blue = -1 ){
         return push_line(pt, dir, "",red,green,blue);
     }
 
-    int push_line(const Eigen::VectorXd &pt, const Eigen::VectorXd &dir, std::string objectName = "", const unsigned int &red = -1, const unsigned int &green = -1, const unsigned int &blue = -1);
+    int push_line(const Eigen::Vector3d &pt, const Eigen::Vector2d &dir, std::string objectName = "", const unsigned int &red = -1, const unsigned int &green = -1, const unsigned int &blue = -1);
 
 
 
 
-    inline int push_direction(const Eigen::VectorXd &direction, const unsigned int &red = -1, const unsigned int &green = -1, const unsigned int &blue = -1 ){
+    inline int push_direction(const Eigen::Vector2d &direction, const unsigned int &red = -1, const unsigned int &green = -1, const unsigned int &blue = -1 ){
         return push_direction(direction, "",red,green,blue);
     }
 
-    int push_direction(const Eigen::VectorXd &direction, std::string objectName = "", const unsigned int &red = -1, const unsigned int &green = -1, const unsigned int &blue = -1);
+    int push_direction(const Eigen::Vector2d &direction, std::string objectName = "", const unsigned int &red = -1, const unsigned int &green = -1, const unsigned int &blue = -1);
 
 
 
-    inline int push_conic(const Eigen::VectorXd &c, const unsigned int &red = -1, const unsigned int &green = -1, const unsigned int &blue = -1 ){
+    inline int push_conic(const Eigen::Vector<double, 6> &c, const unsigned int &red = -1, const unsigned int &green = -1, const unsigned int &blue = -1 ){
          return push_conic(c, "",red,green,blue);
     }
 
-    int push_conic(const Eigen::VectorXd &c, std::string objectName = "", const unsigned int &red = -1, const unsigned int &green = -1, const unsigned int &blue = -1);
+    int push_conic(const Eigen::Vector<double, 6> &c, std::string objectName = "", const unsigned int &red = -1, const unsigned int &green = -1, const unsigned int &blue = -1);
 
 private:
     // list of entries

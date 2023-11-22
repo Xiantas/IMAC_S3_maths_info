@@ -27,7 +27,7 @@ int main(int argc, char **argv) {
     // draw points
     int n=5;
     
-    /*Eigen::VectorXd pt1(2), pt2(2), pt3(2), pt4(2);
+    /*Eigen::Vector3d pt1(2), pt2(2), pt3(2), pt4(2);
     pt1 <<  1.5,  2.0;
     pt2 <<  3.0,  1.0;
     pt3 << -2.0, -1.0;
@@ -35,7 +35,7 @@ int main(int argc, char **argv) {
     pt4 = randomPt();
     std::cout << pt4 << std::endl;*/
 
-    std::vector<Eigen::VectorXd> vp(n,Eigen::VectorXd::Zero(2));
+    std::vector<Eigen::Vector3d> vp(n,Eigen::Vector3d());
 
     for(int i = 0;i<n;i++){
         vp[i] = randomPt();
@@ -55,7 +55,7 @@ int main(int argc, char **argv) {
     // viewer.push_line(pt1, pt2-pt1,  200,200,0);
 
     // draw conic
-    Eigen::VectorXd conic(6);
+    Eigen::Vector<double, 6> conic;
     conic << -1.4, -0.3, -1, -0.6, 0.0, 0.8;
     viewer.push_conic(conic, 0,0,200);
 
