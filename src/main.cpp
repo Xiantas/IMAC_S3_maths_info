@@ -39,8 +39,8 @@ int main(int argc, char **argv) {
 
 
     // draw conic
-    const Eigen::Vector<double, 6> &conic1 = solverExact(vp);
-    const Eigen::Vector<double, 6> &conic2 = solverExact(vp2);
+    Eigen::Vector<double, 6> conic1 = solverExact(vp);
+    Eigen::Vector<double, 6> conic2 = solverExact(vp2);
 
     std::vector<Eigen::Vector<double, 6>> faiseau = generateFaiseau(conic1,conic2);
 
@@ -58,11 +58,15 @@ int main(int argc, char **argv) {
         Eigen::Vector2d dir;
         dir << vl[i](2)/vl[i](0), -vl[i](2)/vl[i](1);
 
-        viewer.push_line(pt,dir, 0,0,200);
+//        viewer.push_line(pt,dir, 0,0,200);
     }
 
-    const Eigen::Vector<double, 6> &conique = solverTangentes(vl);
-    viewer.push_conic(conique, 200,0,0);
+    Eigen::Vector<double, 6> conique = solverTangentes(vl);
+//    viewer.push_conic(conique, 200,0,0);
+
+    Eigen::Vector<double, 6> konik;
+    konik << 1,2,1,2,2,2;
+    viewer.push_conic(konik, 200,0,0);
 
     // render
     viewer.display(); // on terminal

@@ -26,9 +26,9 @@ Eigen::Vector<double,6> solverTangentes(std::vector<Eigen::Vector3d> &droites){
     Eigen::Matrix3d C;
 
     C << 
-        coniqueInv(0),coniqueInv(1)/2,coniqueInv(3)/2,
-        coniqueInv(1)/2,coniqueInv(2),coniqueInv(4)/2,
-        coniqueInv(3)/2,coniqueInv(4)/2,coniqueInv(5);
+        coniqueInv(0), coniqueInv(1)/2, coniqueInv(3)/2,
+        coniqueInv(1)/2, coniqueInv(2), coniqueInv(4)/2,
+        coniqueInv(3)/2, coniqueInv(4)/2, coniqueInv(5);
 
     C = C.inverse().eval();
 

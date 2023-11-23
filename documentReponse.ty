@@ -2,8 +2,17 @@
     align(center, it)
 }
 
-= Conique
+= Coniques
 
 == LAZARUS Ségolène, MOULAT Mattéo
 
-1. Les coefficients sont définis à un facteur multiplicatif près (la preuve formelle est laissée en tant qu'exercice pour le lecteur).
+#v(3em)
+Question $1$ : 
+
+Les coefficients sont définis à un facteur multiplicatif près,
+en effet si l'on prend $display(cal(C) = mat(a, b, c, d, e, f)^top)$, une élipse et
+$alpha != 0$ un réel, alors
+$display(cal(C)' = α cal(C) = mat(α a,α b,α c,α d,α e,α f)^top)$
+désigne en réalité la même élipse. On a donc $5$ degrés de liberté, ce qui nécessite $5$ contraintes.
+
+#smallcaps("E")
