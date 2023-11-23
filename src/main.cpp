@@ -4,16 +4,33 @@
 #include <Eigen/Dense>
 
 #include "Geogebra_conics.hpp"
-#include "files.hpp"
 #include "random.hpp"
 #include "solver.hpp"
-#include "Faiseau.hpp"
+#include "pencil.hpp"
+#include "Directory.hpp"
+
+void conicResolution(const std::string &templateLoctation);
+void pencilGeneration(const std::string &templateLocation);
+void tangents(const std::string &templateLocation);
 
 int main(int argc, char **argv) {
 
-    //Setup du système de fichier
-    fs::setAbsExePath(argv[0]);
+    if (argc < 2) {
+        std::cerr << "le programme doit être appelé ainsi :\n"
+            << "./conic <chemin vers le template html>\n";
 
+        return 0;
+    }
+
+    conicResolution(argv[1]);
+    pencilGeneration(argv[1]);
+    tangents(argv[1]);
+
+    return 0;
+}
+
+
+void conicResolution(const std::string &templateLocation) {
     ConicViewer viewer;
 
     // viewer options
@@ -23,60 +40,85 @@ int main(int argc, char **argv) {
     viewer.show_value(false);
     viewer.show_label(true);
 
-    std::vector<Eigen::Vector3d> vp = fs::loadVectorsFile("vecs.txt");
-    std::vector<Eigen::Vector3d> vp2(5);
+    std::vector<Eigen::Vector3d> points(5);
 
-    for(size_t i = 0; i<vp.size(); i++) {
-//        vp[i] = randomPt();
-        vp2[i] = randomPt();
+    for(size_t i = 0; i<points.size(); i++) {
+        points[i] = randomPoint();
     }
 
-    /*for(size_t i = 0; i<vp.size(); i++) {
-        std::cout << "pt num : " << i << std::endl;
-        std::cout << vp[i] << std::endl;
-        viewer.push_point(vp[i], "p", 200,0,0);
-    }*/
-
-    for (size_t i = 0; i<vp.size(); ++i) {
-        viewer.push_point(vp[i], 0, 0, 0);
+    for(size_t i = 0; i<points.size(); i++) {
+        viewer.push_point(points[i], "p", 200,0,0);
     }
 
+    Eigen::Vector<double, 6> conic = solvePoints(points);
+    viewer.push_conic(conic, 200,0,0);
 
-    // draw conic
-    Eigen::Vector<double, 6> conic1 = solvePoints(vp);
-    Eigen::Vector<double, 6> conic2 = solvePoints(vp2);
+    viewer.display();
+    viewer.render("conic.html", templateLocation);
+}
 
-    std::vector<Eigen::Vector<double, 6>> faiseau = generateFaiseau(conic1,conic2);
+void pencilGeneration(const std::string &templateLocation) {
+    ConicViewer viewer;
 
-    viewer.push_conic(conic1, 0,0,200);
-    /*for(size_t i = 0; i<faiseau.size();i++){
-        viewer.push_conic(faiseau[i], 0,0,200);
-    }*/
+    // viewer options
+    viewer.set_background_color(250, 250, 255);
+    viewer.show_axis(true);
+    viewer.show_grid(false);
+    viewer.show_value(false);
+    viewer.show_label(true);
 
-    std::vector<Eigen::Vector3d> vl(5);
-    for(size_t i = 0; i<vl.size(); i++) {
-        vl[i] = randomLine();
+    std::vector<Eigen::Vector3d> pointsA(5);
+    std::vector<Eigen::Vector3d> pointsB(5);
+
+    for(size_t i = 0; i<pointsA.size(); i++) {
+        pointsA[i] = randomPoint();
+        pointsB[i] = randomPoint();
+    }
+
+    for(size_t i = 0; i<pointsA.size(); i++) {
+        viewer.push_point(pointsA[i], "p", 200,0,0);
+        viewer.push_point(pointsB[i], "p", 200,0,0);
+    }
+
+    Eigen::Vector<double, 6> conicA = solvePoints(pointsA);
+    Eigen::Vector<double, 6> conicB = solvePoints(pointsB);
+
+    std::vector<Eigen::Vector<double, 6>> pencil = generatePencil(conicA,conicB);
+
+    for(size_t i = 0; i<pencil.size();i++){
+        viewer.push_conic(pencil[i], 0,0,200);
+    }
+
+    viewer.display();
+    viewer.render("pencil.html", templateLocation);
+}
+
+void tangents(const std::string &templateLocation) {
+    ConicViewer viewer;
+
+    // viewer options
+    viewer.set_background_color(250, 250, 255);
+    viewer.show_axis(true);
+    viewer.show_grid(false);
+    viewer.show_value(false);
+    viewer.show_label(true);
+
+    std::vector<Eigen::Vector3d> lines(5);
+    for(size_t i = 0; i<lines.size(); i++) {
+        lines[i] = randomLine();
 
         Eigen::Vector3d pt;
-        pt << -vl[i](2)/vl[i](0), 0, 1;
+        pt << -lines[i](2)/lines[i](0), 0, 1;
 
         Eigen::Vector2d dir;
-        dir << vl[i](2)/vl[i](0), -vl[i](2)/vl[i](1);
+        dir << lines[i](2)/lines[i](0), -lines[i](2)/lines[i](1);
 
-//        viewer.push_line(pt,dir, 0,0,200);
+        viewer.push_line(pt,dir, 0,0,200);
     }
 
-    Eigen::Vector<double, 6> conique = solveTangents(vl);
-//    viewer.push_conic(conique, 200,0,0);
+    Eigen::Vector<double, 6> conic = solveTangents(lines);
+    viewer.push_conic(conic, 200,0,0);
 
-    Eigen::Vector<double, 6> konik;
-    konik << 1,2,1,2,2,2;
-    viewer.push_conic(konik, 200,0,0);
-
-    // render
-    viewer.display(); // on terminal
-    // generate the output file (to open with your web browser)
-    viewer.render("output.html", fs::htmlTemplatePath());
-
-    return 0;
+    viewer.display();
+    viewer.render("tangents.html", templateLocation);
 }

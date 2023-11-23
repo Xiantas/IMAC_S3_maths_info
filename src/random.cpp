@@ -13,7 +13,7 @@ double generateRandom() {
     return distribution(generator);
 }
 
-Eigen::Vector3d randomPt(){
+Eigen::Vector3d randomPoint(){
     Eigen::Vector3d point;
 
     double n1 = generateRandom();

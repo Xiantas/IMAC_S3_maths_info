@@ -39,6 +39,7 @@ void ConicViewer::removeNameDoublons(){
 
 
 void ConicViewer::render(const std::string &filename, const std::string &templatePath) {
+    std::cout << "in render\n";
     // open the template file
     std::string data = readFile(templatePath);
 
@@ -65,10 +66,12 @@ void ConicViewer::render(const std::string &filename, const std::string &templat
                                                            + std::to_string(m_background_color[2])
                                                            + ")\");\n";
 
+    std::cout << "Before for loop\n";
     // for each entry, extract the command
     for(const auto& e : entries){
 
         // equation
+        e.display();
         commands += "   api.evalCommand(\"";
         commands += (e._objectName == "") ? "" : e._objectName + " : ";
         commands +=  e.m_equation + "\");\n";

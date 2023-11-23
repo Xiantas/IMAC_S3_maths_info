@@ -1,8 +1,8 @@
-#include "solverExact.hpp"
+#include "solver.hpp"
 #include <cmath>
 
 Eigen::Vector<double,6> solvePoints(std::vector<Eigen::Vector3d> &points) {
-    assert(points.size() == 5);
+    assert(points.size() == 5 && "Le nombre d'éléments en entrée doit être exactement 5 .");
     Eigen::Matrix<double, 5, 6> A;
 
     for(size_t i = 0; i < 5; ++i){
@@ -14,14 +14,14 @@ Eigen::Vector<double,6> solvePoints(std::vector<Eigen::Vector3d> &points) {
         A(i, 5) = std::pow(points[i](2), 2);
     }
 
-    Eigen::JacobiSVD<Eigen::MatrixXd> svd(A,Eigen::ComputeThinU | Eigen::ComputeFullV );
+    Eigen::JacobiSVD<Eigen::MatrixXd> svd(A,Eigen::ComputeThinU | Eigen::ComputeFullV);
     Eigen::VectorXd conique = svd.matrixV().rightCols(1);
 
     return conique;
 }
 
 Eigen::Vector<double,6> solveTangents(std::vector<Eigen::Vector3d> &lines){
-    Eigen::Vector<double, 6> coniqueInv = solverExact(lines);
+    Eigen::Vector<double, 6> coniqueInv = solvePoints(lines);
 
     Eigen::Matrix3d C;
 

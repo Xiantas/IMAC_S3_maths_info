@@ -2,78 +2,64 @@
 
 #include <filesystem>
 #include <iostream>
+#include <fstream>
 #include <vector>
 #include <optional>
 
 #include <Eigen/Dense>
 
 namespace fs {
-Path ABS_EXE_PATH;
 
-void setAbsExePath(const Path &exePath) {
+std::filesystem::path ABS_EXE_PATH;
+
+void setAbsExePath(const std::string &exePath) {
     ABS_EXE_PATH = std::filesystem::canonical(exePath);
 }
 
-std::optional<Path> findPath(Path fileName) {
-    Path testPath = ABS_EXE_PATH.parent_path()/fileName;
+std::string findPath(std::string fileName) {
+    std::cout << "In findPath\n";
 
+    std::string testPath = ABS_EXE_PATH.parent_path()/fileName;
     if (std::filesystem::exists(testPath)) {
         return testPath;
     }
 
     testPath = ABS_EXE_PATH.parent_path().parent_path()/fileName;
-
     if (std::filesystem::exists(testPath)) {
         return testPath;
     }
 
     testPath = ABS_EXE_PATH.parent_path().parent_path()/"data"/fileName;
-
-    if (std::filesystem::exists(testPath)) {
-        return testPath;
-    }
-
-    return {};
-
+    return testPath;
 }
 
-Path htmlTemplatePath() {
-    Path file = "geogebra_conics_template.html";
+std::string htmlTemplatePath() {
+    std::cout << "looking for html\n";
+    std::string file = "geogebra_conics_template.html";
 
-    std::optional<Path> htmlPath = findPath(file);
-    if (!htmlPath.has_value()) {
-        throw std::filesystem::filesystem_error("File \"" + file.u8string() + "\" not found.", std::error_code());
-    }
-
-    return htmlPath.value();
+    return findPath(file);
 }
 
-std::vector<Eigen::Vector3d> loadVectorsFile(const Path &path) {
-    std::optional<Path> fileOpt = findPath(path);
-    if (!htmlPath.has_value()) {
-        throw std::filesystem::filesystem_error("File \"" + file.u8string() + "\" not found.", std::error_code());
-    }
-
-    Path filePath = fileOpt.value();
+std::vector<Eigen::Vector3d> loadVectorsFile(const std::string &path) {
+    std::string file = findPath(path);
 
 	//open the file
-	std::ifstream fileContent;
-	fileContent.open(filename, std::ios::in | std::ios::binary);
+	std::ifstream fileContent(file, std::ios::in | std::ios::binary);
 	if(!fileContent.is_open()){
-		throw std::filesystem::filesystem_error("Could not open \"" +  filePath.u8string() + "\"", std::error_code();
+		throw std::filesystem::filesystem_error("Could not open \"" + file + "\"", std::error_code());
 	}
 
 	size_t vectorsNumber;
-	myfile >> vectorsNumber;
+	fileContent >> vectorsNumber;
     std::vector<Eigen::Vector3d> res(vectorsNumber);
 
-	for(size_t i=0; i<vectorSize; ++i) {
-		myfile >> res[i](0);
-		myfile >> res[i](1);
-		myfile >> res[i](2);
+	for(size_t i=0; i<vectorsNumber; ++i) {
+		fileContent >> res[i](0);
+		fileContent >> res[i](1);
+		fileContent >> res[i](2);
     }
 
-	myfile.close();
+	fileContent.close();
 
     return res;
 }
