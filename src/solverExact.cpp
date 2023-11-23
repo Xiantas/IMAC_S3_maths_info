@@ -1,7 +1,7 @@
 #include "solverExact.hpp"
 #include <cmath>
 
-Eigen::Vector<double,6> solverExact(std::vector<Eigen::Vector3d> &point) {
+Eigen::Vector<double,6> solvePoints(std::vector<Eigen::Vector3d> &point) {
     assert(point.size() == 5);
     Eigen::Matrix<double, 5, 6> A;
 
@@ -20,7 +20,7 @@ Eigen::Vector<double,6> solverExact(std::vector<Eigen::Vector3d> &point) {
     return conique;
 }
 
-Eigen::Vector<double,6> solverTangentes(std::vector<Eigen::Vector3d> &droites){
+Eigen::Vector<double,6> solveTangentes(std::vector<Eigen::Vector3d> &droites){
     Eigen::Vector<double, 6> coniqueInv = solverExact(droites);
 
     Eigen::Matrix3d C;
