@@ -6,7 +6,7 @@
 #include "Geogebra_conics.hpp"
 #include "files.hpp"
 #include "random.hpp"
-#include "solverExact.hpp"
+#include "solver.hpp"
 #include "Faiseau.hpp"
 
 int main(int argc, char **argv) {
@@ -23,11 +23,11 @@ int main(int argc, char **argv) {
     viewer.show_value(false);
     viewer.show_label(true);
 
-    std::vector<Eigen::Vector3d> vp(5);
+    std::vector<Eigen::Vector3d> vp = fs::loadVectorsFile("vecs.txt");
     std::vector<Eigen::Vector3d> vp2(5);
 
     for(size_t i = 0; i<vp.size(); i++) {
-        vp[i] = randomPt();
+//        vp[i] = randomPt();
         vp2[i] = randomPt();
     }
 
@@ -37,13 +37,18 @@ int main(int argc, char **argv) {
         viewer.push_point(vp[i], "p", 200,0,0);
     }*/
 
+    for (size_t i = 0; i<vp.size(); ++i) {
+        viewer.push_point(vp[i], 0, 0, 0);
+    }
+
 
     // draw conic
-    Eigen::Vector<double, 6> conic1 = solverExact(vp);
-    Eigen::Vector<double, 6> conic2 = solverExact(vp2);
+    Eigen::Vector<double, 6> conic1 = solvePoints(vp);
+    Eigen::Vector<double, 6> conic2 = solvePoints(vp2);
 
     std::vector<Eigen::Vector<double, 6>> faiseau = generateFaiseau(conic1,conic2);
 
+    viewer.push_conic(conic1, 0,0,200);
     /*for(size_t i = 0; i<faiseau.size();i++){
         viewer.push_conic(faiseau[i], 0,0,200);
     }*/
@@ -61,7 +66,7 @@ int main(int argc, char **argv) {
 //        viewer.push_line(pt,dir, 0,0,200);
     }
 
-    Eigen::Vector<double, 6> conique = solverTangentes(vl);
+    Eigen::Vector<double, 6> conique = solveTangents(vl);
 //    viewer.push_conic(conique, 200,0,0);
 
     Eigen::Vector<double, 6> konik;

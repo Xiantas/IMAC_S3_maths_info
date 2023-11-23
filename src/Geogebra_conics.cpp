@@ -109,13 +109,16 @@ void ConicViewer::render(const std::string &filename, const std::string &templat
 
 // https://wiki.geogebra.org/en/Point_Command
 int ConicViewer::push_point(const Eigen::Vector3d &pt, std::string objectName, const unsigned int &red, const unsigned int &green, const unsigned int &blue) {
+    if (pt(2) == 0.0) {
+        return EXIT_SUCCESS;
+    }
     // remove space in the name
     objectName.erase(std::remove(objectName.begin(), objectName.end(), ' '), objectName.end());
 
     // final equation
     std::string equation;
 
-    equation = " Point({" + std::to_string(pt[0]) + "," + std::to_string(pt[1]) + "})";
+    equation = " Point({" + std::to_string(pt[0]/pt[2]) + "," + std::to_string(pt[1]/pt[2]) + "})";
 
     // put a default name
     if(objectName == "")
