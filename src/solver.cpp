@@ -1,7 +1,7 @@
 #include "solver.hpp"
 #include <cmath>
 
-Eigen::Vector<double,6> solvePoints(std::vector<Eigen::Vector3d> &points) {
+Eigen::Vector<double,6> solvePoints(const std::vector<Eigen::Vector3d> &points) {
     assert(points.size() == 5 && "Le nombre d'éléments en entrée doit être exactement 5 .");
     Eigen::Matrix<double, 5, 6> A;
 
@@ -20,7 +20,7 @@ Eigen::Vector<double,6> solvePoints(std::vector<Eigen::Vector3d> &points) {
     return conique;
 }
 
-Eigen::Vector<double,6> solveTangents(std::vector<Eigen::Vector3d> &lines){
+Eigen::Vector<double,6> solveTangents(const std::vector<Eigen::Vector3d> &lines){
     Eigen::Vector<double, 6> coniqueInv = solvePoints(lines);
 
     Eigen::Matrix3d C;
