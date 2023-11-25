@@ -7,12 +7,36 @@
 == LAZARUS Ségolène, MOULAT Mattéo
 
 #v(3em)
-Question $1$ : 
+#underline("Question :") Pourquoi peut-on résoudre ce système avec uniquement 5 points ?
 
+#h(1.5em)
 Les coefficients sont définis à un facteur multiplicatif près,
 en effet si l'on prend $display(cal(C) = mat(a, b, c, d, e, f)^top)$, une élipse et
 $alpha != 0$ un réel, alors
 $display(cal(C)' = α cal(C) = mat(α a,α b,α c,α d,α e,α f)^top)$
 désigne en réalité la même élipse. On a donc $5$ degrés de liberté, ce qui nécessite $5$ contraintes.
 
-#smallcaps("E")
+#underline("Question :") Montrez pourquoi la tangente $bold(l)$ d'une conique $C$
+passant par le point $bold(x) in C$ peut s'exprimmer sous la forme :
+$bold(l) = C bold(x)$.
+
+#h(1.5em)
+Soit $C$ la matrice $3 times 3$ associée à une conique. et $x$ un point
+appartenant à cette même conique. On pose $bold(l) = C bold(x)$.
+On a donc $bold(l)^top = (C bold(x))^top = bold(x)^top C^top = bold(x)^top C$.\
+#h(1.5em)
+On en déduit que $bold(l)^top C bold(l) = (bold(x)^top C) C^(-1) (C bold(x))
+= bold(x)^top C bold(x) = 0$ car $bold(x) in C$. Donc $bold(l)$ est bien tangente
+à la conique.\
+#h(1.5em)
+De plus, $bold(l)^top bold(x) = bold(x)^top C bold(x) = 0$ donc $bold(x) in bold(l)$.\
+#h(1.5em)
+On en déduit que $bold(l)$ est bien la tangente à $C$ au point $bold(x)$.
+
+#underline("Question :") Que se passe-t-il si certains des points sont à l'infini ?
+
+#h(1.5em)
+Puisque les calculs sont fait dans le cadre de la géométrie projective,
+cela ne pose pas de problème du point de vue des calculs.
+Simplement, comme certains points sont à l'infini,
+la conique devra passer par l'infini et donc être une parabole ou une hyperbole.
